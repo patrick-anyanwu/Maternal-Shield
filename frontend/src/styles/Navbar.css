@@ -1,0 +1,492 @@
+/* src/styles/Navbar.css */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+:root {
+  --primary: #4c1d95;
+  --primary-light: #5d2db5;
+  --primary-dark: #3b1578;
+  --accent: #f72585;
+  --accent-light: rgba(247, 37, 133, 0.5);
+  --white: #ffffff;
+  --transition-speed: 0.3s;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+  color: var(--white);
+  font-family: "Nunito", sans-serif;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.4s ease, height 0.4s ease;
+}
+
+/* Scroll effect - add .scrolled class with JavaScript */
+.navbar.scrolled {
+  background-color: rgba(76, 29, 149, 0.95);
+  height: 60px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  position: absolute;
+  left: 2rem;
+  overflow: visible;
+}
+
+/* Enhanced logo container with hover effects */
+.logo-container {
+  position: relative;
+  overflow: visible;
+  transition: transform 0.4s ease;
+}
+
+/* Logo image enhancements */
+.logo-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Logo transitions when scrolled */
+.logo-img.scrolled {
+  width: 38px;
+  height: 38px;
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+/* Improved logo hover animations */
+.navbar-logo:hover .logo-img {
+  transform: rotate(8deg) scale(1.12);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Add a subtle glow effect behind the logo on hover */
+.logo-container::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.navbar-logo:hover .logo-container::after {
+  opacity: 0.4;
+  transform: scale(1.5);
+}
+
+/* Advanced brand name styling */
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  position: relative;
+  letter-spacing: 0.6px;
+  display: flex;
+  align-items: center;
+}
+
+/* Brand name transitions when scrolled */
+.brand-name.scrolled {
+  font-size: 1.3rem;
+  transition: font-size 0.4s ease;
+}
+
+/* Maternal text styling */
+.brand-name .maternal {
+  color: var(--white);
+  position: relative;
+  transition: transform 0.4s ease, text-shadow 0.4s ease;
+}
+
+/* Shield text styling with gradients */
+.brand-name .shield {
+  background: linear-gradient(90deg, 
+    var(--accent-light) 0%, 
+    var(--accent) 60%,
+    var(--accent-light) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  margin-left: 2px;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  animation: brandHighlight 2s ease-in-out 1;
+}
+
+/* Shield icon before "Shield" text */
+.brand-name .shield::before {
+  content: '🛡️';
+  font-size: 0.8em;
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover effects for the entire brand name */
+.navbar-logo:hover .brand-name .maternal {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  transform: translateX(-2px);
+}
+
+.navbar-logo:hover .brand-name .shield {
+  filter: drop-shadow(0 0 6px var(--accent-light));
+  transform: translateX(2px);
+  animation: pulseGlow 2s infinite;
+}
+
+/* Show shield icon on hover */
+.navbar-logo:hover .brand-name .shield::before {
+  transform: translateY(-50%) scale(1);
+  opacity: 0.9;
+}
+
+/* Add a subtle line between words on hover */
+.navbar-logo:hover .brand-name::after {
+  content: '';
+  position: absolute;
+  height: 60%;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.7), transparent);
+  left: 50%;
+  top: 20%;
+  opacity: 0.6;
+  animation: fadeInLine 0.4s ease-out;
+}
+
+/* Add a subtle bounce effect when the user clicks the logo */
+.navbar-logo:active .logo-img {
+  transform: scale(0.9);
+  transition: transform 0.1s ease;
+}
+
+.navbar-logo:active .brand-name {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+/* Special effects for when the logo is clicked */
+.navbar-logo.clicked .logo-img {
+  animation: pulse 0.3s ease-in-out;
+}
+
+/* Apply floating animation to both logo and text on hover */
+.navbar-logo:hover .logo-container {
+  animation: float 3s ease-in-out infinite;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links span {
+  color: var(--white);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  position: relative;
+  transition: color var(--transition-speed), transform var(--transition-speed);
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+}
+
+.nav-links span::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width var(--transition-speed), left var(--transition-speed);
+  transform: translateX(-50%);
+}
+
+.nav-links span:hover {
+  color: var(--accent);
+  text-shadow: 0 0 5px var(--accent-light);
+  transform: translateY(-2px);
+}
+
+.nav-links span:hover::before {
+  width: 80%;
+}
+
+/* Active nav link */
+.nav-links span.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.nav-links span.active::before {
+  width: 80%;
+}
+
+/* Mobile menu button */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color var(--transition-speed);
+  z-index: 1000;
+  padding: 0.5rem;
+  position: absolute;
+  right: 2rem;
+}
+
+.mobile-menu-btn:hover {
+  color: var(--accent);
+}
+
+/* Mobile navigation */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 320px;
+  height: 100vh;
+  background-color: var(--primary);
+  padding: 5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: right 0.4s ease;
+  z-index: 998;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 0 20px;
+}
+
+.mobile-nav.open {
+  right: 0;
+}
+
+.mobile-nav span {
+  color: var(--white);
+  font-size: 1.2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: color var(--transition-speed), padding-left var(--transition-speed);
+}
+
+.mobile-nav span:hover {
+  color: var(--accent);
+  padding-left: 0.5rem;
+}
+
+/* Overlay when mobile menu is open */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 997;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Animation for navbar items on load */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-links span {
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+.nav-links span:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.nav-links span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.nav-links span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.nav-links span:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* Subtle pulsing glow animation for the accent color */
+@keyframes pulseGlow {
+  0% {
+    filter: drop-shadow(0 0 3px var(--accent-light));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px var(--accent));
+  }
+  100% {
+    filter: drop-shadow(0 0 3px var(--accent-light));
+  }
+}
+
+/* Animation for fading in divider line between words */
+@keyframes fadeInLine {
+  from {
+    opacity: 0;
+    height: 0;
+  }
+  to {
+    opacity: 0.6;
+    height: 60%;
+  }
+}
+
+/* Animation for logo pulse when clicked */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Animation for floating logo container */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Add an animated highlight for the brand on page load */
+@keyframes brandHighlight {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.3);
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 1.5rem;
+    justify-content: flex-start;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .navbar-logo {
+    left: 1.5rem;
+  }
+
+  .brand-name {
+    font-size: 1.2rem;
+  }
+  
+  .brand-name.scrolled {
+    font-size: 1.1rem;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
+/* For smaller screens */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 1rem;
+  }
+  
+  .navbar-logo {
+    left: 1rem;
+  }
+  
+  .logo-img {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .logo-img.scrolled {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .brand-name {
+    font-size: 1rem;
+  }
+  
+  .brand-name.scrolled {
+    font-size: 0.9rem;
+  }
+  
+  .brand-name .shield::before {
+    display: none; /* Hide the shield icon on small screens */
+  }
+  
+  .navbar-logo:hover .brand-name::after {
+    display: none; /* Hide the divider line on small screens */
+  }
+}
+
+/* For focus states - accessibility */
+.nav-links span:focus-visible,
+.mobile-menu-btn:focus-visible,
+.mobile-nav span:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}

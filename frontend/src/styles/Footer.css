@@ -1,0 +1,22 @@
+/* Footer.css */
+.footer {
+  background: rgba(76, 29, 149, 0.85);
+  color: white;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 1rem;
+  font-family: "Nunito", sans-serif;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.5px;
+  /* Remove margin-top to eliminate the gap */
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.2rem 0.5rem;
+    font-size: 0.85rem;
+  }
+}

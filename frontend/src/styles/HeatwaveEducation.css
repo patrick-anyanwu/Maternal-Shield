@@ -1,0 +1,637 @@
+/* HeatwaveEducation.css - Complete refined UI/UX */
+
+/* Main container with dynamic background */
+.hw-content {
+    width: 100%;
+    height: 100vh;
+    color: white;
+    font-family: 'Nunito', 'Poppins', sans-serif;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Default purple gradient background */
+    background: linear-gradient(to bottom right, #312e81, #581c87, #831843);
+  }
+  
+  /* Heat intensity classes */
+  .hw-content.moderate-heat {
+    background: linear-gradient(to bottom right, #ffe082, #ffb74d, #581c87);
+  }
+  
+  .hw-content.high-heat {
+    background: linear-gradient(to bottom right, #ffb74d, #ff8a65, #6b21a8);
+  }
+  
+  .hw-content.severe-heat {
+    background: linear-gradient(to bottom right, #ff8a65, #ff5252, #7c3aed);
+  }
+  
+  .hw-content.extreme-heat {
+    background: linear-gradient(to bottom right, #ff5252, #d50000, #9f1239);
+  }
+  
+  /* Heat shimmer animation */
+  .hw-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cfilter id='a' x='0' y='0'%3E%3CfeGaussianBlur stdDeviation='20' result='b'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2' result='c'/%3E%3CfeDisplacementMap in='b' in2='c' scale='30' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+    animation: hw-heat-shimmer 15s infinite alternate;
+  }
+  
+  @keyframes hw-heat-shimmer {
+    0% { opacity: 0.03; transform: scale(1); }
+    100% { opacity: 0.07; transform: scale(1.1); }
+  }
+  
+  /* Stars background */
+  .hw-stars-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .hw-star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    animation: hw-twinkle 2s infinite ease-in-out;
+    opacity: 0.8;
+    box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.3);
+  }
+  
+  @keyframes hw-twinkle {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.5); opacity: 1; }
+  }
+  
+  /* Compact page container - fits in viewport without scrolling */
+  .hw-compact-page {
+    position: relative;
+    z-index: 2;
+    width: 92%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    gap: 15px;
+    min-height: 95vh; /* Use most of viewport height without forcing scroll */
+    padding-top: 0; /* Remove top padding - we'll use margin instead */
+  }
+  /* Definition box styling for "What is a Heatwave?" */
+  .hw-definition-box {
+    width: 100%;
+    background: rgba(81, 53, 135, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 20px;
+    margin-top: 80px; /* Add space at top, away from navbar */
+    margin-bottom: 15px; /* Reduced bottom margin to save space */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  } 
+  
+  .hw-definition-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+  }
+  
+  .hw-definition-card h3 {
+    font-size: 1.3rem;
+    margin: 0 0 8px 0; /* Reduced margin */
+    color: #f0abfc;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  
+  .hw-definition-card p {
+    font-size: 1.05rem;
+    margin: 0; /* Remove margin */
+    line-height: 1.5;
+  }
+  
+  /* State selector - Styled to match reference */
+  .hw-state-selector {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px; /* Reduced margin */
+    padding-left: 20px;
+    width: 100%;
+    gap: 15px;
+  }
+  
+  .hw-state-selector label {
+    font-size: 1rem;
+    color: white;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  
+  .hw-state-dropdown {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 0.95rem;
+    width: 250px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+    transition: all 0.3s ease;
+  }
+  
+  .hw-state-dropdown:focus {
+    outline: none;
+    border-color: rgba(240, 171, 252, 0.5);
+    box-shadow: 0 0 0 2px rgba(240, 171, 252, 0.2);
+  }
+  
+  .hw-state-dropdown option {
+    background-color: #513587;
+    color: white;
+  }
+  
+  /* Refined Main Box Layout */
+  .hw-main-box {
+    width: 100%;
+    background: rgba(60, 35, 120, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px; /* Slightly reduced padding */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Adjusted Main Content Layout - To match reference */
+  .hw-main-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Simplified to two columns */
+    grid-template-areas: "temp-section climate-facts";
+    gap: 20px;
+    width: 100%;
+    align-items: start;
+  }
+  
+  /* Combined temperature section including thermometer and controls */
+  .hw-temp-section {
+    grid-area: temp-section;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 20px;
+  }
+  
+  /* Combined thermometer + temp layout */
+  .hw-thermometer-layout {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
+  }
+  
+  /* Thermometer wrapper */
+  .hw-thermometer-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 250px;
+  }
+  
+  /* Thermometer styling */
+  .hw-thermometer {
+    width: 30px;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 15px 15px 0 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .hw-thermometer-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    transition: height 0.5s ease, background-color 0.5s ease;
+  }
+  
+  .hw-thermometer-bulb {
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    transition: background-color 0.5s ease;
+  }
+  
+  .hw-thermometer-scale {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+    font-size: 0.8rem;
+  }
+  
+  /* Larger temperature display as shown in image */
+  .hw-temp-display {
+    font-size: 7rem; /* Much larger temperature display */
+    font-weight: 700;
+    margin-bottom: 5px;
+    transition: color 0.5s ease;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    line-height: 1;
+  }
+  
+  /* Day counter styling */
+  .hw-day-display {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    font-weight: 600; /* Bolder font */
+    color: #ffd54f; /* Golden/yellow color for visibility */
+    background: rgba(0, 0, 0, 0.2); /* Subtle background */
+    padding: 8px 16px; /* Add padding */
+    border-radius: 50px; /* Rounded corners */
+    border: 1px solid rgba(255, 215, 0, 0.3); /* Subtle gold border */
+    transition: all 0.5s ease; /* Smooth transition when changing */
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); /* Subtle glow */
+    display: inline-block;
+    min-width: 120px; /* Ensure consistent width */
+    text-align: center;
+  }
+
+  @keyframes day-change {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  .hw-day-display.day-changed {
+    animation: day-change 0.5s ease;
+  }
+  
+  /* Heatwave indicator styling */
+  .hw-heatwave-indicator {
+    font-size: 1rem;
+    color: white;
+    background: rgba(255, 0, 0, 0.6);
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-weight: 600;
+    border: 2px solid #ffcc00;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    animation: pulse 2s infinite;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  /* Simulation button styling to match image */
+  .hw-control-btn {
+    background: rgba(100, 50, 150, 0.4); /* Deeper purple button */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    padding: 12px 30px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    min-width: 180px;
+    text-align: center;
+  }
+  
+  .hw-control-btn:hover:not(:disabled) {
+    background: rgba(120, 60, 180, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .hw-control-btn.active {
+    background: rgba(180, 100, 220, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .hw-control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* Climate facts section styling to match image */
+  .hw-climate-facts {
+    grid-area: climate-facts;
+    background: rgba(50, 30, 100, 0.7); /* Deeper, more vibrant background matching image */
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    height: 100%;
+  }
+  
+  .hw-climate-facts h3 {
+    margin: 0 0 15px 0;
+    color: #f0abfc;
+    font-size: 1.4rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 12px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+  }
+  
+  /* Fact items with clean dividing lines */
+  .hw-fact-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Equal columns */
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .hw-fact-item:last-child {
+    border-bottom: none;
+  }
+  
+  .hw-fact-label {
+    font-weight: 500; /* Lighter weight as in image */
+    color: rgba(255, 255, 255, 0.9);
+    padding-right: 10px;
+    font-size: 1.05rem;
+  }
+  
+  .hw-fact-value {
+    color: white;
+    text-align: right;
+    font-weight: 500;
+    font-size: 1.05rem;
+  }
+  
+  /* CTA container */
+  .hw-cta-container {
+    width: 100%;
+    text-align: center;
+    margin-top: auto; /* Push to bottom */
+    padding-top: 20px;
+  }
+  
+  .hw-cta-btn {
+    background: linear-gradient(to right, #ff99cc, #ff66b3);
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 14px 25px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 102, 179, 0.3);
+    width: 100%;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  }
+  
+  .hw-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 102, 179, 0.4);
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 1200px) {
+    .hw-main-content {
+      grid-template-columns: 1fr 1.5fr; /* Adjust ratio for medium screens */
+    }
+    
+    .hw-temp-display {
+      font-size: 5.5rem; /* Slightly smaller on medium screens */
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .hw-main-content {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "temp-section"
+        "climate-facts";
+      gap: 25px;
+    }
+
+    .hw-definition-box {
+        margin-top: 60px; /* Less space on medium screens */
+      }
+    
+    .hw-thermometer-layout {
+      justify-content: center;
+      width: 100%;
+    }
+    
+    .hw-climate-facts {
+      width: 100%;
+    }
+    
+    .hw-compact-page {
+      width: 95%;
+    }
+    
+    .hw-temp-display {
+      font-size: 5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hw-content {
+      height: auto;
+      min-height: 100vh;
+    }
+
+    .hw-definition-box {
+        margin-top: 40px; /* Even less space on small screens */
+      }
+    
+    .hw-compact-page {
+        min-height: auto; /* Allow natural height on mobile */
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    
+    .hw-state-selector {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-left: 10px;
+    }
+    
+    .hw-state-dropdown {
+      width: 100%;
+    }
+    
+    .hw-temp-display {
+      font-size: 4rem;
+    }
+    
+    .hw-thermometer-layout {
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .hw-thermometer-wrapper {
+      height: 180px;
+    }
+    
+    .hw-thermometer {
+      height: 160px;
+    }
+    
+    .hw-thermometer-scale {
+      height: 160px;
+    }
+    
+    .hw-climate-facts {
+      padding: 15px;
+    }
+    
+    .hw-climate-facts h3 {
+      font-size: 1.2rem;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+    
+    .hw-fact-label, 
+    .hw-fact-value {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .hw-fact-item {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+    
+    .hw-fact-value {
+      text-align: left;
+      padding-left: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 5px;
+    }
+    
+    .hw-control-btn {
+      min-width: 100%;
+      padding: 10px 15px;
+      font-size: 1rem;
+    }
+    
+    .hw-temp-display {
+      font-size: 3.5rem;
+    }
+    
+    .hw-day-display {
+      font-size: 1rem;
+    }
+    
+    .hw-definition-box {
+      padding: 10px 15px;
+    }
+    
+    .hw-definition-card h3 {
+      font-size: 1.1rem;
+    }
+    
+    .hw-definition-card p {
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Accessibility improvements */
+  @media (prefers-reduced-motion: reduce) {
+    .hw-content::before,
+    .hw-star,
+    .hw-heatwave-indicator,
+    .hw-thermometer-fill,
+    .hw-thermometer-bulb {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+  
+  /* High contrast support */
+  @media (forced-colors: active) {
+    .hw-thermometer-fill,
+    .hw-thermometer-bulb,
+    .hw-control-btn,
+    .hw-cta-btn {
+      forced-color-adjust: none;
+    }
+  }
+  
+  /* Print styles */
+  @media print {
+    .hw-content {
+      background: white !important;
+      color: black !important;
+    }
+    
+    .hw-definition-box,
+    .hw-main-box,
+    .hw-climate-facts {
+      background: white !important;
+      border: 1px solid #ddd !important;
+      box-shadow: none !important;
+    }
+    
+    .hw-thermometer-fill,
+    .hw-thermometer-bulb {
+      print-color-adjust: exact;
+    }
+    
+    .hw-control-btn,
+    .hw-cta-btn {
+      display: none !important;
+    }
+    
+    .hw-main-title,
+    .hw-definition-card h3,
+    .hw-climate-facts h3 {
+      color: #333 !important;
+      text-shadow: none !important;
+    }
+  }

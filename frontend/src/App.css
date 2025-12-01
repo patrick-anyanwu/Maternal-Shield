@@ -1,0 +1,12 @@
+/* reset.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(to bottom right, #312e81, #581c87, #831843);
+  color: white;
+  overflow-x: hidden;
+}

@@ -1,0 +1,117 @@
+
+/* SymptomCharts CSS */
+.symptom-charts {
+    padding: 1rem 0;
+  }
+  
+  .chart-container {
+    background-color: rgba(46, 31, 95, 0.5);
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .chart-container h3 {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    font-size: 1.35rem;
+    color: #ffffff;
+    text-align: center;
+  }
+  
+  .chart-description {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .symptom-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+  }
+  
+  .filter-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-item label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+  }
+  
+  .filter-item label:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .filter-item.all label {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+  }
+  
+  .filter-item input {
+    margin: 0;
+  }
+  
+  .empty-chart {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+  }
+  
+  /* Custom tooltip styles */
+  .custom-tooltip {
+    background-color: rgba(46, 31, 95, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .custom-tooltip .date {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.5rem;
+  }
+  
+  .tooltip-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .tooltip-items p {
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .symptom-filter {
+      gap: 0.5rem;
+    }
+    
+    .filter-item label {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.9rem;
+    }
+  }

@@ -1,0 +1,756 @@
+/* src/styles/FeatureCard.css */
+.feature-card {
+  width: 280px;
+  height: 280px;
+  border-radius: 24px;
+  perspective: 1200px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.3),
+    0 0 0 2px rgba(255, 255, 255, 0.1),
+    0 0 15px rgba(236, 72, 153, 0.2);
+  transform-style: preserve-3d;
+  margin: 0 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Add subtle edge glow */
+.feature-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, 
+    rgba(236, 72, 153, 0.4),
+    rgba(79, 70, 229, 0.1),
+    rgba(236, 72, 153, 0.1),
+    rgba(79, 70, 229, 0.4)
+  );
+  border-radius: 26px; /* Slightly larger than the card */
+  z-index: -1;
+  opacity: 0.5;
+  transition: opacity 0.5s ease;
+}
+
+.feature-card:hover::before,
+.feature-card.is-hovered::before {
+  opacity: 0.8;
+}
+
+/* Photo Container Styles */
+.card-photo-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.card-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.feature-card.has-photo:hover .card-photo, 
+.feature-card.has-photo.is-hovered .card-photo {
+  transform: scale(1.15);
+  transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: saturate(1.2) brightness(1.1);
+}
+
+.photo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, 
+                 rgba(49, 46, 129, 0.7) 0%, 
+                 rgba(88, 28, 135, 0.5) 50%, 
+                 rgba(131, 24, 67, 0.7) 100%);
+  z-index: 1;
+  transition: background 0.5s ease;
+}
+
+.feature-card.has-photo:hover .photo-overlay,
+.feature-card.has-photo.is-hovered .photo-overlay {
+  background: linear-gradient(0deg, 
+               rgba(49, 46, 129, 0.75) 0%, 
+               rgba(88, 28, 135, 0.6) 50%, 
+               rgba(131, 24, 67, 0.75) 100%);
+}
+
+/* Add a subtle border glow on hover */
+.feature-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  background: linear-gradient(
+    135deg,
+    rgba(236, 72, 153, 0),
+    rgba(236, 72, 153, 0)
+  );
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.feature-card:hover::after, .feature-card.is-hovered::after {
+  opacity: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(236, 72, 153, 0.3),
+    rgba(79, 70, 229, 0.2)
+  );
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
+}
+
+.feature-card:hover, .feature-card.is-hovered {
+  transform: translateY(-12px) scale(1.06);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    0 0 0 2px rgba(255, 255, 255, 0.2),
+    0 0 20px rgba(236, 72, 153, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Control flip animation with classes instead of hover */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  border-radius: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.feature-card.is-flipped .card-inner,
+.feature-card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Improved front and back card styling */
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.5s ease;
+}
+
+.card-front {
+  color: var(--card-text-color, #1e1b4b);
+  font-weight: bold;
+  font-size: 1.1rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 0 20px rgba(0, 0, 0, 0.15) inset,
+    0 0 0 1px rgba(236, 72, 153, 0.1);
+}
+
+/* Adjust front for photo cards */
+.has-photo .card-front {
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+
+/* Enhanced back card styling with gradient backdrop */
+.card-back {
+  background: linear-gradient(135deg, rgba(219, 39, 119, 0.9), rgba(67, 56, 202, 0.9));
+  transform: rotateY(180deg);
+  /* background: linear-gradient(135deg, rgba(49, 46, 129, 0.9), rgba(131, 24, 67, 0.9)); */
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+  justify-content: space-between;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 0 30px rgba(0, 0, 0, 0.3) inset,
+    0 0 0 1px rgba(236, 72, 153, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Enhanced design elements for card back */
+.card-back::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(236, 72, 153, 0.2) 0%,
+    transparent 70%
+  );
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.card-back::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+    linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.05) 50%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, rgba(255, 255, 255, 0.05) 50%, transparent 52%);
+  background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
+  opacity: 0.3;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 24px;
+}
+
+/* Floating particles on card back */
+@keyframes float-particle {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.card-back-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card-back-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  animation: float-particle 5s infinite ease-in-out;
+}
+
+.card-back-particle:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  width: 6px;
+  height: 6px;
+  animation-delay: 0s;
+  animation-duration: 4s;
+}
+
+.card-back-particle:nth-child(2) {
+  top: 70%;
+  left: 20%;
+  width: 4px;
+  height: 4px;
+  animation-delay: 1s;
+  animation-duration: 6s;
+}
+
+.card-back-particle:nth-child(3) {
+  top: 30%;
+  left: 80%;
+  width: 7px;
+  height: 7px;
+  animation-delay: 2s;
+  animation-duration: 5s;
+}
+
+.card-back-particle:nth-child(4) {
+  top: 80%;
+  left: 70%;
+  width: 5px;
+  height: 5px;
+  animation-delay: 0.5s;
+  animation-duration: 4.5s;
+}
+
+.card-back-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.5px;
+  background: linear-gradient(to right, #ffffff, #f0abfc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card-title {
+  padding: 0 10px;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+  will-change: transform;
+  margin-top: 1.5rem;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Adjust title spacing for photo cards */
+.has-photo .card-title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.feature-card:hover .card-title, 
+.feature-card.is-hovered .card-title {
+  transform: scale(1.08);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  letter-spacing: 0.5px;
+}
+
+/* Enhanced Icon Container */
+.card-icon-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), 
+              0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+              0 5px 10px rgba(0, 0, 0, 0.1) inset;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-icon-container.bg-blue {
+  background: linear-gradient(135deg, #67e8f9, #22d3ee, #0891b2);
+}
+
+.card-icon-container.bg-pink {
+  background: linear-gradient(135deg, #f9a8d4, #ec4899, #be185d);
+}
+
+.card-icon-container.bg-green {
+  background: linear-gradient(135deg, #86efac, #4ade80, #16a34a);
+}
+
+.feature-card:hover .card-icon-container, 
+.feature-card.is-hovered .card-icon-container {
+  transform: scale(1.1) translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 
+              0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+              0 8px 20px rgba(0, 0, 0, 0.15) inset;
+}
+
+/* Icon styling */
+.card-icon {
+  font-size: 2.5rem;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+}
+
+.card-icon-image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover .card-icon, 
+.feature-card.is-hovered .card-icon,
+.feature-card:hover .card-icon-image,
+.feature-card.is-hovered .card-icon-image {
+  transform: scale(1.1);
+}
+
+.card-description {
+  padding: 0 12px;
+  font-family: 'Nunito', sans-serif;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.6;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Make the Explore button pulse subtly on hover */
+@keyframes subtle-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Explore button that appears on back of card */
+.explore-button {
+  background: linear-gradient(135deg, #ec4899, #db2777);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+  z-index: 2;
+}
+
+.feature-card:hover .explore-button,
+.feature-card.is-hovered .explore-button {
+  animation: subtle-pulse 1.5s infinite ease-in-out;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+.explore-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0)
+  );
+  transition: all 0.6s;
+}
+
+.explore-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+.explore-button:hover::before {
+  left: 100%;
+}
+
+/* Enhanced gradient backgrounds */
+.bg-blue {
+  --card-text-color: #0c4a6e;
+}
+
+.bg-pink {
+  --card-text-color: #831843;
+}
+
+.bg-green {
+  --card-text-color: #14532d;
+}
+
+/* Add a tint layer that animates on hover */
+.card-tint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, rgba(49, 46, 129, 0.3), rgba(131, 24, 67, 0.3));
+  border-radius: 24px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: 1;
+}
+
+.feature-card.is-hovering .card-tint {
+  opacity: 1;
+}
+
+/* Aurora effect inside card */
+.card-aurora-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  z-index: 1;
+  opacity: 0.8;
+}
+
+.card-aurora {
+  position: absolute;
+  width: 140%;
+  height: 140%;
+  filter: blur(20px);
+  mix-blend-mode: overlay;
+  opacity: 0.15;
+  background: linear-gradient(
+    90deg,
+    rgba(76, 201, 240, 0.3),
+    rgba(67, 237, 155, 0.5),
+    rgba(45, 196, 96, 0.6)
+  );
+  border-radius: 40% 60% 60% 40%;
+  animation: aurora-card-drift 15s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+.card-aurora:nth-child(1) {
+  top: -20%;
+  right: -20%;
+  animation-delay: 0s;
+}
+
+.card-aurora:nth-child(2) {
+  bottom: -20%;
+  left: -20%;
+  width: 120%;
+  height: 120%;
+  animation-delay: 4s;
+  border-radius: 60% 40% 40% 60%;
+  opacity: 0.1;
+}
+
+@keyframes aurora-card-drift {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(5deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(-5deg) scale(0.95);
+  }
+}
+
+/* Enhanced shine effect on hover */
+.card-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-200%) rotate(-45deg);
+  transition: transform 0.7s ease;
+  z-index: 1;
+}
+
+.feature-card:hover .card-shine, 
+.feature-card.is-hovered .card-shine {
+  transform: translateX(100%) rotate(-25deg);
+  transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Enhanced glow effect on hover */
+.card-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: blur(15px);
+  z-index: 0;
+  transition: opacity 0.5s ease;
+}
+
+.feature-card:hover .card-glow, 
+.feature-card.is-hovered .card-glow {
+  opacity: 0.8;
+  filter: blur(20px);
+  background: radial-gradient(
+    circle at center,
+    rgba(236, 72, 153, 0.5) 0%,
+    rgba(236, 72, 153, 0) 70%
+  );
+  transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Particle effects that appear on hover */
+.card-particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+  animation: card-particle-fade 1.5s ease-out forwards;
+}
+
+@keyframes card-particle-fade {
+  0% {
+    transform: scale(0) translate(0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translate(20px, -20px);
+    opacity: 0;
+  }
+}
+
+/* Decorative twinkles/stars */
+.card-twinkle-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.card-twinkle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: card-twinkle 3s infinite ease-in-out;
+}
+
+@keyframes card-twinkle {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.8); opacity: 0.8; }
+}
+
+/* Float-in animation for when cards appear */
+@keyframes float-in {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.float-in {
+  animation: float-in 0.6s ease-out forwards;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .feature-card {
+    width: 240px;
+    height: 240px;
+  }
+  
+  .card-front {
+    font-size: 1rem;
+  }
+  
+  .card-back {
+    font-size: 0.85rem;
+  }
+  
+  .card-icon-container {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .card-icon {
+    font-size: 2rem;
+  }
+  
+  .card-icon-image {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-card {
+    width: 200px;
+    height: 200px;
+  }
+
+  .card-front {
+    font-size: 0.9rem;
+  }
+
+  .card-back {
+    font-size: 0.8rem;
+  }
+  
+  .card-icon-container {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .card-icon {
+    font-size: 1.6rem;
+  }
+  
+  .card-icon-image {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+  }
+  
+  .explore-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+}

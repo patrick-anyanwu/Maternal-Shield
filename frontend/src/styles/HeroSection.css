@@ -1,0 +1,1071 @@
+/* HeroSection.css */
+.hero {
+  position: relative;
+  padding: 3rem 3rem 0 3rem;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #312e81, #581c87, #831843);
+  color: white;
+  font-family: "Nunito", sans-serif;
+  overflow: hidden;
+}
+
+/* 🟢 Aurora Effect */
+.aurora-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.aurora {
+  position: absolute;
+  width: 80%;
+  height: 60%;
+  filter: blur(40px);
+  mix-blend-mode: soft-light;
+  opacity: 0.25;
+  background: linear-gradient(
+    90deg,
+    rgba(76, 201, 240, 0.3),
+    rgba(67, 237, 155, 0.5),
+    rgba(45, 196, 96, 0.6)
+  );
+  border-radius: 50% 25% 40% 60%;
+  animation: aurora-drift 20s ease-in-out infinite alternate,
+             aurora-glow 8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.aurora:nth-child(1) {
+  top: -10%;
+  right: -10%;
+  animation-delay: 0s;
+}
+
+.aurora:nth-child(2) {
+  bottom: -30%;
+  left: -10%;
+  width: 70%;
+  height: 40%;
+  animation-delay: 3s;
+  border-radius: 60% 40% 30% 70%;
+  opacity: 0.2;
+}
+
+.aurora:nth-child(3) {
+  top: 40%;
+  right: -20%;
+  width: 60%;
+  height: 40%;
+  animation-delay: 7s;
+  border-radius: 40% 60% 50% 30%;
+  opacity: 0.15;
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(5deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(-5deg) scale(0.9);
+  }
+}
+
+@keyframes aurora-glow {
+  0%, 100% {
+    opacity: 0.25;
+    filter: blur(40px) hue-rotate(0deg);
+  }
+  50% {
+    opacity: 0.35;
+    filter: blur(50px) hue-rotate(15deg);
+  }
+}
+
+/* 🌟 Hero Text */
+.hero-text {
+  max-width: 600px;
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+/* Simple font update for hero heading */
+.hero h2 {
+  font-family: 'Raleway', sans-serif; /* Clean, elegant sans-serif font */
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: white; /* Pure white text */
+  text-shadow: 0 0 15px rgba(240, 171, 252, 0.3); /* Subtle glow */
+  animation: titlePulse 3s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .hero h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* Add subtle underline to h3 */
+.hero h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1rem 0;
+  position: relative;
+  display: inline-block;
+}
+
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.hero p {
+  font-size: 1rem;
+  color: #c7d2fe;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero button {
+  background: linear-gradient(to right, #ec4899, #db2777);
+  border: none;
+  padding: 0.8rem 2rem;
+  color: white;
+  border-radius: 30px;
+  font-weight: bold;
+  margin-top: 2rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 4px 15px rgba(219, 39, 119, 0.4);
+  transition: all 0.3s ease;
+}
+
+.hero button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+  transition: all 0.6s;
+  z-index: -1;
+}
+
+.hero button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(219, 39, 119, 0.5);
+}
+
+.hero button:hover::before {
+  left: 100%;
+}
+
+.hero button:active {
+  transform: translateY(1px);
+}
+
+/* ↓ Scroll Indicator - Sleek chevron design */
+.scroll-down {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scroll-down:hover {
+  transform: translateX(-50%) translateY(-5px);
+}
+
+.scroll-down p {
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.scroll-indicator {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.chevron {
+  width: 20px;
+  height: 8px;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: rotate(45deg);
+  animation: fadeDown 1.5s infinite;
+}
+
+.chevron:nth-child(1) {
+  opacity: 0.3;
+  animation-delay: 0s;
+}
+
+.chevron:nth-child(2) {
+  opacity: 0.6;
+  animation-delay: 0.2s;
+}
+
+.chevron:nth-child(3) {
+  opacity: 0.9;
+  animation-delay: 0.4s;
+}
+
+@keyframes fadeDown {
+  0% { 
+    opacity: 0.1;
+    transform: rotate(45deg) translate(-5px, -5px);
+  }
+  50% { 
+    opacity: 1;
+  }
+  100% { 
+    opacity: 0.1;
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+}
+
+/* ✨ Stars Background */
+.stars-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite ease-in-out;
+  opacity: 0.8;
+  top: calc(100% * var(--i));
+  left: calc(100% * var(--j));
+  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.3);
+}
+
+.star:nth-child(3n) { 
+  width: 4px;
+  height: 4px;
+  animation-delay: 1s; 
+}
+
+.star:nth-child(3n+1) { 
+  width: 2px;
+  height: 2px;
+  animation-delay: 0.5s; 
+}
+
+.star:nth-child(3n+2) { 
+  animation-delay: 1.5s; 
+}
+
+@keyframes twinkle {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.5); opacity: 1; }
+}
+
+/* 🌊 Hero Text Entrance */
+.wave-fade-in {
+  animation: waveFade 2.5s ease-out forwards;
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+@keyframes waveFade {
+  0% { transform: translateY(30px); opacity: 0; }
+  50% { transform: translateY(-10px); opacity: 0.7; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* 🌬️ Wind Layer */
+.wind-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.wind {
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05), transparent);
+  transform: skewY(-5deg);
+  animation: windMove 15s linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Shooting stars */
+.shooting-star {
+  position: absolute;
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, white, transparent);
+  animation: shootingStarAnimation 3s linear infinite;
+  opacity: 0;
+  top: calc(30% * var(--i));
+  left: calc(100% * var(--j));
+  transform: rotate(var(--rotation));
+}
+
+@keyframes shootingStarAnimation {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--rotation)) translateX(0) scale(0.5);
+  }
+  5% {
+    opacity: 1;
+  }
+  15% {
+    transform: rotate(var(--rotation)) translateX(-200px) scale(1);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--rotation)) translateX(-200px) scale(1);
+  }
+}
+
+/* 🌳 Enhanced Tree Styles */
+.tree-wrapper {
+  position: absolute;
+  bottom: 0%;
+  right: 7%;
+  width: 40vw;
+  max-width: 450px;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+  animation: subtle-sway 15s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes subtle-sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(0.5deg) scale(1.01); }
+  75% { transform: rotate(-0.5deg) scale(0.99); }
+}
+
+.tree-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 3px rgba(67, 237, 155, 0.3));
+}
+
+/* Tree glow effect */
+.tree-glow {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at 70% 90%,
+    rgba(67, 237, 155, 0.1) 0%,
+    rgba(67, 237, 155, 0) 70%
+  );
+  filter: blur(20px);
+  opacity: 0;
+  animation: tree-glow-pulse 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes tree-glow-pulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.4; }
+}
+
+/* Falling leaves */
+.leaf {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(67, 237, 155, 0.4);
+  border-radius: 50% 0 50% 50%;
+  opacity: 0.6;
+  filter: blur(1px);
+  animation: falling-leaf var(--animation-duration, 10s) linear infinite;
+  animation-delay: var(--animation-delay, 0s);
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes falling-leaf {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(var(--x-dist, -50px), 300px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.baby-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none; 
+}
+
+/* 👶 Baby in Swing */
+.baby-image {
+  position: absolute;
+  bottom: 17%;
+  right: 62%;
+  width: 20%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  animation: swing 2s ease-in-out infinite;
+  transition: filter 0.4s ease, transform 0.2s ease;
+  z-index: 2;
+  filter: brightness(0.6);
+  pointer-events: auto; /* Enable pointer events specifically on the image */
+}
+
+/* Make the hover effect more dramatic */
+.baby-image:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+  cursor: pointer; /* Optional: Add pointer cursor to indicate interactivity */
+}
+
+/* 🎠 Animations */
+@keyframes swing {
+  0% { transform: rotate(1deg); }
+  50% { transform: rotate(-1deg); }
+  100% { transform: rotate(1deg); }
+}
+
+@keyframes floatDeeper {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes windMove {
+  0% { transform: translateX(-100%) skewY(-5deg); }
+  100% { transform: translateX(100%) skewY(-5deg); }
+}
+
+/* Atmospheric particle effects */
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.3;
+  animation: float var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(var(--x1), var(--y1)); }
+  50% { transform: translate(var(--x2), var(--y2)); }
+  75% { transform: translate(var(--x3), var(--y3)); }
+}
+
+/* 📱 Mobile Styles */
+@media (max-width: 768px) {
+  .hero-text {
+    top: 45%;
+    transform: none;
+    padding: 0 1rem;
+  }
+
+  .hero h2 { font-size: 2.2rem; }
+  .hero h3 { font-size: 1.5rem; }
+  .hero p  { font-size: 0.95rem; }
+  .hero button {
+    font-size: 1rem;
+    padding: 0.8rem 1.6rem;
+  }
+  
+  .tree-wrapper {
+    display: none;
+  }
+  
+  /* Show more stars on mobile for visual interest */
+  .star {
+    opacity: 0.9;
+  }
+}
+
+/* Modern backdrop circles */
+.backdrop-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+  z-index: 0;
+  filter: blur(20px);
+  pointer-events: none;
+  opacity: 0.7;
+  animation: breathe 10s infinite ease-in-out;
+}
+
+.backdrop-circle:nth-child(1) {
+  width: 50vw;
+  height: 50vw;
+  top: -10vh;
+  right: -10vw;
+  background: radial-gradient(circle at center, rgba(236, 72, 153, 0.15) 0%, rgba(236, 72, 153, 0) 70%);
+  animation-delay: 0s;
+}
+
+.backdrop-circle:nth-child(2) {
+  width: 40vw;
+  height: 40vw;
+  bottom: -5vh;
+  left: -10vw;
+  background: radial-gradient(circle at center, rgba(129, 140, 248, 0.15) 0%, rgba(129, 140, 248, 0) 70%);
+  animation-delay: 3s;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 0.5; }
+}
+
+/* Add these styles to your HeroSection.css file */
+
+/* Pulsing animation for the baby image when heartbeat is playing */
+.baby-image.pulse-animation {
+  animation: pulse 1s ease-in-out infinite;
+  filter: brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+  cursor: pointer;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    filter: brightness(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.3) drop-shadow(0 0 12px rgba(255, 255, 255, 0.5));
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  }
+}
+
+/* Heartbeat indicator */
+/* Compact ECG Style Heartbeat Indicator */
+
+.heartbeat-indicator {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(20, 20, 40, 0.9);
+  border-radius: 30px; /* More rounded for compact look */
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: "Nunito", sans-serif;
+  backdrop-filter: blur(4px);
+  max-height: 40px; /* Control the height */
+}
+
+/* Smaller ECG container */
+.ecg-container {
+  position: relative;
+  width: 40px; /* Reduced width */
+  height: 24px; /* Reduced height */
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ECG line */
+.ecg-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-50%);
+}
+
+/* The actual ECG wave line */
+.ecg-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(to right, 
+    /* Baseline */
+    rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0.5%,
+    #ec4899 0.5%, #ec4899 1.5%,
+    
+    /* P wave (atrial depolarization) */
+    #ec4899 1.5%, #ec4899 2%,
+    #ec4899 2%, #ec4899 3%,
+    #ec4899 3%, #ec4899 4%,
+    #ec4899 4%, #ec4899 5%,
+    #ec4899 5%, #ec4899 6%,
+    #ec4899 6%, #ec4899 7%,
+    
+    /* PR segment (conduction delay) */
+    #ec4899 7%, #ec4899 9%,
+    
+    /* QRS complex (ventricular depolarization) */
+    #ec4899 9%, #ec4899 9.5%,
+    #ec4899 9.5%, #ec4899 10%,
+    #ec4899 10%, #ec4899 10.5%,
+    #ec4899 10.5%, #ec4899 11%,
+    #ec4899 11%, #ec4899 12%,
+    #ec4899 12%, #ec4899 13%,
+    #ec4899 13%, #ec4899 14%,
+    #ec4899 14%, #ec4899 15%,
+    #ec4899 15%, #ec4899 16%,
+    #ec4899 16%, #ec4899 17%,
+    
+    /* ST segment and T wave (ventricular repolarization) */
+    #ec4899 17%, #ec4899 18%,
+    #ec4899 18%, #ec4899 19%,
+    #ec4899 19%, #ec4899 20%,
+    #ec4899 20%, #ec4899 21%,
+    #ec4899 21%, #ec4899 22%,
+    #ec4899 22%, #ec4899 23%,
+    #ec4899 23%, #ec4899 24%,
+    
+    /* Back to baseline until next beat */
+    #ec4899 24%, #ec4899 25%,
+    #ec4899 25%, #ec4899 50%,
+    
+    /* Repeat the pattern for the second half */
+    rgba(0,0,0,0) 50%, rgba(0,0,0,0) 50.5%,
+    #ec4899 50.5%, #ec4899 51.5%,
+    #ec4899 51.5%, #ec4899 52%,
+    #ec4899 52%, #ec4899 53%,
+    #ec4899 53%, #ec4899 54%,
+    #ec4899 54%, #ec4899 55%,
+    #ec4899 55%, #ec4899 56%,
+    #ec4899 56%, #ec4899 57%,
+    #ec4899 57%, #ec4899 59%,
+    #ec4899 59%, #ec4899 59.5%,
+    #ec4899 59.5%, #ec4899 60%,
+    #ec4899 60%, #ec4899 60.5%,
+    #ec4899 60.5%, #ec4899 61%,
+    #ec4899 61%, #ec4899 62%,
+    #ec4899 62%, #ec4899 63%,
+    #ec4899 63%, #ec4899 64%,
+    #ec4899 64%, #ec4899 65%,
+    #ec4899 65%, #ec4899 66%,
+    #ec4899 66%, #ec4899 67%,
+    #ec4899 67%, #ec4899 68%,
+    #ec4899 68%, #ec4899 69%,
+    #ec4899 69%, #ec4899 70%,
+    #ec4899 70%, #ec4899 71%,
+    #ec4899 71%, #ec4899 72%,
+    #ec4899 72%, #ec4899 73%,
+    #ec4899 73%, #ec4899 74%,
+    #ec4899 74%, #ec4899 75%,
+    #ec4899 75%, #ec4899 100%
+  );
+  background-size: 100% 100%;
+  clip-path: path('M 0,20 L 0.5,20 L 1,20 L 1.5,20 L 2,20 L 2.5,18 L 3,16 L 3.5,14 L 4,16 L 4.5,18 L 5,20 L 6,20 L 7,20 L 8,20 L 9,20 L 9.5,15 L 10,5 L 10.5,0 L 11,35 L 11.5,40 L 12,30 L 13,20 L 14,20 L 15,20 L 16,20 L 17,20 L 18,18 L 19,16 L 20,18 L 21,20 L 22,20 L 23,20 L 24,20 L 25,20 L 50,20 L 50.5,20 L 51,20 L 51.5,20 L 52,20 L 52.5,18 L 53,16 L 53.5,14 L 54,16 L 54.5,18 L 55,20 L 56,20 L 57,20 L 58,20 L 59,20 L 59.5,15 L 60,5 L 60.5,0 L 61,35 L 61.5,40 L 62,30 L 63,20 L 64,20 L 65,20 L 66,20 L 67,20 L 68,18 L 69,16 L 70,18 L 71,20 L 72,20 L 73,20 L 74,20 L 75,20 L 100,20');
+  animation: ecg-wave 2s linear infinite;
+}
+
+@keyframes ecg-wave {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ECG grid lines */
+.ecg-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 5px 5px; /* Smaller grid */
+}
+
+.playing-text {
+  font-weight: 500;
+  font-size: 0.8rem; /* Smaller text */
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Heartbeat rate counter */
+.heartbeat-rate {
+  margin-left: auto;
+  font-size: 0.8rem; /* Smaller text */
+  color: #ec4899;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.heartbeat-rate::after {
+  content: "BPM";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.5rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .heartbeat-indicator {
+    padding: 4px 8px;
+    gap: 4px;
+  }
+  
+  .ecg-container {
+    width: 30px;
+    height: 20px;
+  }
+  
+  .playing-text {
+    font-size: 0.7rem;
+  }
+  
+  .heartbeat-rate {
+    font-size: 0.7rem;
+  }
+}
+
+
+/* Nebula Glow Button */
+.cosmic-journey-btn {
+  background: rgba(219, 39, 119, 0.2);
+  color: white;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.75rem 1.7rem;
+  border: 2px solid #ec4899;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  margin-top: 2rem;
+  z-index: 1;
+}
+
+/* Inner star effect */
+.cosmic-journey-btn::before {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 10px 2px white,
+    0 0 20px 5px rgba(236, 72, 153, 0.8);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Nebula glow effect */
+.cosmic-journey-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(236, 72, 153, 0.6) 0%,
+    rgba(236, 72, 153, 0) 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+/* Hover states */
+.cosmic-journey-btn:hover {
+  background: rgba(219, 39, 119, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.7);
+}
+
+.cosmic-journey-btn:hover::before {
+  opacity: 0.8;
+}
+
+.cosmic-journey-btn:hover::after {
+  opacity: 1;
+}
+
+/* Active state */
+.cosmic-journey-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 0 12px rgba(236, 72, 153, 0.5);
+  background: rgba(219, 39, 119, 0.5);
+}
+
+/* Button text */
+.cosmic-journey-btn span {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Subtle pulse animation */
+@keyframes subtleGlow {
+  0%, 100% {
+    border-color: #ec4899;
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
+  }
+  50% {
+    border-color: #f472b6;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.7);
+  }
+}
+
+.cosmic-journey-btn {
+  animation: subtleGlow 4s infinite ease-in-out;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .cosmic-journey-btn {
+    padding: 0.6rem 1.4rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Enhanced Baby Visibility Styles */
+
+/* Increase initial brightness and glow for better visibility */
+.baby-image {
+  filter: brightness(0.8) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+  transition: all 0.5s ease;
+  animation: attention-pulse 4s ease-in-out infinite;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Stronger hover effect */
+.baby-image:hover {
+  transform: scale(1.1);
+  filter: brightness(1.3) drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Add a pulsing animation to draw attention */
+@keyframes attention-pulse {
+  0%, 100% {
+    transform: scale(1) rotate(1deg);
+    filter: brightness(0.8) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+  }
+  50% {
+    transform: scale(1.05) rotate(-1deg);
+    filter: brightness(1.1) drop-shadow(0 0 25px rgba(255, 255, 255, 0.7));
+  }
+}
+
+/* Add a subtle click hint */
+.baby-image::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 13.1c0-.3.1-.5.4-.7.2-.2.5-.3.7-.3.3 0 .5.1.7.3.2.2.3.4.3.7s-.1.5-.3.7c-.2.2-.4.3-.7.3-.3 0-.5-.1-.7-.3-.3-.2-.4-.4-.4-.7zm4.5 0c0-.3.1-.5.3-.7.2-.2.5-.3.8-.3.2 0 .5.1.7.3.2.2.3.4.3.7s-.1.5-.3.7c-.2.2-.4.3-.7.3-.3 0-.5-.1-.8-.3-.2-.2-.3-.4-.3-.7zm-8.7-4.3c.7-.9 1.5-1.7 2.4-2.3.9-.6 1.9-1.1 2.9-1.4 1-.3 2.1-.5 3.2-.5s2.2.2 3.2.5c1 .3 2 .8 2.9 1.4.9.6 1.7 1.4 2.4 2.3.7.9 1.2 1.9 1.6 3h-1.5c-.4-.9-.9-1.7-1.5-2.4-.6-.7-1.3-1.3-2-1.8-.8-.5-1.6-.9-2.4-1.1-.9-.3-1.8-.4-2.7-.4s-1.8.1-2.7.4c-.9.3-1.7.6-2.4 1.1-.8.5-1.4 1.1-2 1.8-.6.7-1.1 1.5-1.5 2.4H2.1c.4-1.1 1-2.1 1.7-3z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  bottom: -5px;
+  right: -5px;
+  opacity: 0.9;
+  border-radius: 50%;
+  background-color: #ec4899;
+  padding: 3px;
+  box-shadow: 0 0 10px rgba(236, 72, 153, 0.7);
+  z-index: 10;
+  animation: click-indicator 2s ease-in-out infinite;
+}
+
+@keyframes click-indicator {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% { 
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Add a heart rate sound icon hint on first load */
+/* Position hint just above the baby image */
+.baby-hint {
+  position: absolute;
+  bottom: 35%; /* Position above the baby but not too far */
+  left: 10%;
+  transform: translateX(-50%);
+  background-color: rgba(20, 20, 40, 0.9);
+  border-radius: 12px;
+  padding: 8px 12px;
+  color: white;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  z-index: 5;
+  opacity: 0;
+  animation: fade-in 0.5s ease-out 1s forwards, float-hint 3s ease-in-out 1.5s infinite;
+  pointer-events: none;
+  font-family: "Nunito", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(236, 72, 153, 0.4);
+  width: auto;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Arrow pointing to the baby */
+.baby-hint::before {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid rgba(20, 20, 40, 0.9);
+  border-bottom: none;
+}
+/* Update animations for top positioning */
+@keyframes float-hint {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-5px); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to { opacity: 0; transform: translateX(-50%) translateY(10px); }
+}
+
+.baby-hint-heart {
+  color: #ec4899;
+  font-size: 1rem;
+  animation: heart-beat 1s ease-in-out infinite;
+}
+
+@keyframes heart-beat {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.3); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.15); }
+  60% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float-hint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Hide hint after some time or when clicked */
+.baby-hint.hide-hint {
+  animation: fade-out 0.5s ease-in forwards;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(20px); }
+}
+

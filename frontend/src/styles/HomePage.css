@@ -1,0 +1,55 @@
+.homepage {
+  font-family: "Nunito", sans-serif;
+  background-color: #1e1b4b;
+  background: linear-gradient(to bottom right, #312e81, #581c87, #831843);
+  color: white;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.fetus-container {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 204, 255, 0.2),
+    transparent
+  );
+  box-shadow: 0 8px 24px rgba(255, 100, 150, 0.3);
+  animation: floatY 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+.fetus-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: brightness(1.1) saturate(1.2) blur(0.3px);
+}
+
+/* Soft breathing float */
+@keyframes floatY {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+}
+
+.impact-page {
+  padding-top: 100px;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}

@@ -1,0 +1,2370 @@
+/* Heat Impact Visualization Styles */
+
+.heat-impact-page {
+  position: relative;
+  padding: 60px 30px 80px;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #312e81, #581c87, #831843);
+  color: white;
+  font-family: "Inter", "Nunito", sans-serif;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.heat-impact-page.content-visible {
+  opacity: 1;
+}
+
+/* Animation classes */
+.animate-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Heat Glow Effect - Similar to Aurora but with heat colors */
+.heat-glow-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heat-glow {
+  position: absolute;
+  width: 80%;
+  height: 60%;
+  filter: blur(70px);
+  mix-blend-mode: soft-light;
+  opacity: 0.4;
+  background: linear-gradient(
+    90deg,
+    rgba(253, 186, 116, 0.4),
+    rgba(225, 29, 72, 0.6),
+    rgba(190, 18, 60, 0.7)
+  );
+  border-radius: 50% 25% 40% 60%;
+  animation: heat-glow-drift 25s ease-in-out infinite alternate,
+           heat-glow-pulse 10s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.heat-glow:nth-child(1) {
+  top: -10%;
+  right: -10%;
+  animation-delay: 0s;
+}
+
+.heat-glow:nth-child(2) {
+  bottom: -30%;
+  left: -10%;
+  width: 70%;
+  height: 40%;
+  animation-delay: 3s;
+  border-radius: 60% 40% 30% 70%;
+  opacity: 0.3;
+}
+
+@keyframes heat-glow-drift {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(5deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(-5deg) scale(0.9);
+  }
+}
+
+@keyframes heat-glow-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    filter: blur(70px) hue-rotate(0deg);
+  }
+  50% {
+    opacity: 0.5;
+    filter: blur(80px) hue-rotate(15deg);
+  }
+}
+
+/* Heat Orbs */
+.heat-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  z-index: 0;
+  pointer-events: none;
+  animation: orbPulse 15s infinite ease-in-out alternate;
+}
+
+.heat-orb.orb1 {
+  width: 50vw;
+  height: 50vw;
+  top: -15%;
+  right: -15%;
+  background: radial-gradient(circle at center, rgba(255, 140, 0, 0.5) 0%, rgba(255, 140, 0, 0) 70%);
+  animation-delay: 0s;
+}
+
+.heat-orb.orb2 {
+  width: 55vw;
+  height: 55vw;
+  bottom: -20%;
+  left: -15%;
+  background: radial-gradient(circle at center, rgba(220, 38, 38, 0.5) 0%, rgba(220, 38, 38, 0) 70%);
+  animation-delay: 7s;
+}
+
+@keyframes orbPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.35;
+  }
+}
+
+/* Content Container */
+.temperature-content-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+/* Header Styling */
+.heat-header {
+  text-align: center;
+  margin-bottom: 35px;
+  padding-top: 20px;
+}
+
+.heat-title {
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0 auto 1rem;
+  padding: 0 10px;
+  max-width: 800px;
+  background: linear-gradient(to right, #ffffff, #fed7aa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 5px rgba(253, 186, 116, 0.15);
+  letter-spacing: -0.5px;
+}
+
+.heat-title-underline {
+  width: 100px;
+  height: 4px;
+  margin: 0 auto 12px;
+  background: linear-gradient(to right, #f97316, #dc2626);
+  position: relative;
+  animation: expandLine 1.5s ease-out forwards;
+  transform-origin: center;
+  border-radius: 2px;
+}
+
+.page-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@keyframes expandLine {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Location Bar - Fixed sticky positioning */
+.location-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 15px 25px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  flex-wrap: wrap;
+  gap: 15px;
+  position: sticky;
+  top: 15px;
+  z-index: 1000;     
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.location-bar:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+}
+
+.location-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  flex: 1;
+  min-width: 200px;
+}
+
+.location-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.location-bar:hover .location-icon {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* IMPROVED SEARCH BAR WITH CLEAR BUTTON */
+.location-search {
+  flex: 2;
+  min-width: 200px;
+  position: relative;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.location-search input {
+  width: 100%;
+  padding: 12px 18px 12px 42px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: white;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.location-search input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.location-search input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.clear-search-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.clear-search-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.location-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(15px);
+  border-radius: 12px;
+  margin-top: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 9999;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.location-suggestion-item {
+  padding: 12px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.location-suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.location-suggestion-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.use-location-btn {
+  background: #f97316;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.use-location-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(249, 115, 22, 0.4);
+  background: #ea580c;
+}
+
+.button-icon {
+  display: inline-block;
+}
+
+.current-temp-display {
+  padding: 10px 15px;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.temp-value-container {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.temp-value {
+  font-weight: 800;
+  transition: color 0.5s ease;
+}
+
+.loading-spinner {
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.loading-spinner::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.heat-alert-indicator {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background-color: #ef4444;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-top: 6px;
+  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.alert-icon {
+  display: inline-block;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+/* Main Content */
+.temperature-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 5;
+}
+
+.temperature-top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+/* Temperature Control Section */
+.temp-control-section {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 24px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.temp-control-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center;
+  color: white;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.3), transparent);
+  transition: width 0.5s ease;
+}
+
+.temp-control-section:hover .section-title::after,
+.temperature-sensitivity-section:hover .section-title::after {
+  width: 100%;
+}
+
+/* IMPROVED THERMOMETER VISUALIZATION */
+.temperature-visualization-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.thermometer-container {
+  height: 380px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.thermometer-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  cursor: grab !important;
+  padding: 20px; /* Add padding to increase hit area */
+}
+
+.thermometer-wrapper:active {
+  cursor: grabbing !important;
+}
+
+.thermometer-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.thermometer {
+  position: relative;
+  height: 340px;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.thermometer-bulb {
+  width: 70px;
+  height: 70px;
+  background-color: var(--temp-color);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+  border: 4px solid rgba(255, 255, 255, 0.8);
+}
+
+.thermometer-bulb-shine {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 15px;
+  height: 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+.thermometer-stem {
+  width: 24px;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  position: absolute;
+  bottom: 50px;
+  overflow: hidden;
+  border: 4px solid rgba(255, 255, 255, 0.8);
+}
+
+.thermometer-fill {
+  width: 100%;
+  background-color: var(--temp-color);
+  position: absolute;
+  bottom: 0;
+  border-radius: 10px 10px 0 0;
+  transition: height 0.3s ease, background-color 0.3s ease;
+}
+
+.thermometer-scale {
+  position: absolute;
+  left: -40px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.thermometer-mark {
+  width: 30px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.threshold-mark {
+  width: 35px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.temp-label {
+  position: absolute;
+  left: -35px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.threshold-label {
+  color: white;
+  font-weight: bold;
+}
+
+/* Helper prompt for thermometer interaction */
+.thermometer-helper-prompt {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.thermometer-wrapper:hover .thermometer-helper-prompt {
+  opacity: 1;
+}
+
+/* Current temperature indicator - shown only when dragging */
+.thermometer-current {
+  position: absolute;
+  right: -65px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.current-marker {
+  width: 14px;
+  height: 3px;
+  background-color: white;
+}
+
+.current-value {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Shake Animations */
+.shake-once-mild {
+  animation: shakeMild 0.5s ease;
+}
+
+.shake-once-medium {
+  animation: shakeMedium 0.5s ease;
+}
+
+.shake-once-severe {
+  animation: shakeSevere 0.5s ease;
+}
+
+.shake-once-extreme {
+  animation: shakeExtreme 0.5s ease;
+}
+
+@keyframes shakeMild {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px) rotate(-1deg); }
+  75% { transform: translateX(2px) rotate(1deg); }
+}
+
+@keyframes shakeMedium {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-3px) rotate(-2deg); }
+  40% { transform: translateX(3px) rotate(2deg); }
+  60% { transform: translateX(-3px) rotate(-2deg); }
+  80% { transform: translateX(3px) rotate(2deg); }
+}
+
+@keyframes shakeSevere {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px) rotate(-3deg); }
+  20%, 40%, 60%, 80% { transform: translateX(5px) rotate(3deg); }
+}
+
+@keyframes shakeExtreme {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-7px) rotate(-4deg); }
+  20%, 40%, 60%, 80% { transform: translateX(7px) rotate(4deg); }
+}
+
+/* Risk Level Display */
+.risk-level-display {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.risk-level {
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-align: center;
+  border: 2px solid;
+  transition: all 0.3s ease;
+}
+
+/* Temperature Sensitivity Section */
+.temperature-sensitivity-section {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 24px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.temperature-sensitivity-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Trimester tabs with simplified design */
+.trimester-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.trimester-tab {
+  flex: 1;
+  max-width: none;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.trimester-tab:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.trimester-tab.active {
+  background: linear-gradient(135deg, #f97316, #c2410c);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
+  transform: translateY(-3px) scale(1.05);
+}
+
+.trimester-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.7s ease;
+}
+
+.trimester-tab:hover::before {
+  left: 100%;
+}
+
+.trimester-tab-text {
+  font-size: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Sensitivity Items Grid - IMPROVED WITH CONSISTENT SIZING */
+.sensitivity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.sensitivity-item {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 16px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: fadeInUp 0.5s forwards;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  --risk-color: #ccc;
+  display: flex;
+  flex-direction: column;
+  height: 180px; /* Fixed height for consistency */
+}
+
+.sensitivity-item::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--risk-color);
+  transition: height 0.3s ease;
+}
+
+.sensitivity-item:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--risk-color);
+}
+
+.sensitivity-item:hover::before {
+  height: 6px;
+}
+
+.sensitivity-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sensitivity-item h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+}
+
+.risk-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.sensitivity-item-description {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 auto;
+  flex-grow: 1;
+}
+
+.sensitivity-item-content {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: auto;
+}
+
+/* View details prompt */
+.view-details-prompt {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.details-icon {
+  transition: transform 0.3s ease;
+}
+
+.sensitivity-item:hover .view-details-prompt {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sensitivity-item:hover .details-icon {
+  transform: translateX(3px);
+}
+
+/* Risk Level Indicator */
+.risk-level-indicator {
+  margin-top: 12px;
+}
+
+.risk-level-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  position: relative;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.risk-level-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease, background-color 0.5s ease;
+}
+
+/* Area Details Section - IMPROVED WITH EXPANDABLE SECTIONS */
+.area-details-section {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 24px;
+  padding: 30px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  margin-top: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.5s ease;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.area-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.area-details-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #ffffff, #fed7aa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.close-details {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  color: white;
+}
+
+.close-details:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.area-details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.area-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+/* Expandable content sections */
+.area-info-section {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.area-info-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  background: rgba(15, 23, 42, 0.7);
+}
+
+.expandable-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.area-info-section h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: white;
+  position: relative;
+  display: inline-block;
+}
+
+.expand-icon {
+  transition: transform 0.3s ease;
+}
+
+.expand-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.expandable-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding-top 0.3s ease;
+}
+
+.area-info-section.expanded .expandable-content {
+  max-height: 500px;
+  padding-top: 20px;
+}
+
+.area-info-section p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 15px;
+}
+
+/* Recommendation Content */
+.recommendation-content {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.recommendation-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.recommendation-content p {
+  margin: 0;
+}
+
+/* Heat Warning */
+.heat-warning {
+  padding: 18px;
+  border-radius: 12px;
+  margin-top: 15px;
+  border: 1px solid;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.warning-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.warning-icon {
+  flex-shrink: 0;
+}
+
+.warning-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.heat-warning p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Simplified View Video Button in Area Details */
+.view-video-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.view-video-button {
+  background: linear-gradient(135deg, #f97316, #c2410c);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+}
+
+.view-video-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.5);
+}
+
+.scroll-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  animation: fadeIn 1s forwards;
+}
+
+.scroll-hint-icon {
+  animation: scrollIndicator 1.5s infinite;
+}
+
+@keyframes scrollIndicator {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Development Video Section */
+.development-overview-section {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 24px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.5s ease;
+}
+
+.development-content {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.development-video-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.development-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  transition: transform 0.5s ease;
+}
+
+.development-video-container:hover .development-video {
+  transform: scale(1.02);
+}
+
+.development-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.development-info h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: white;
+  position: relative;
+  display: inline-block;
+}
+
+.development-info h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(to right, #f97316, transparent);
+  transition: width 0.5s ease;
+}
+
+.development-info:hover h2::after {
+  width: 100px;
+}
+
+.development-info p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 20px;
+}
+
+.current-temp-impact {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.current-temp-impact h3 {
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.impact-summary {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Sensitivity reference in development section */
+.sensitivity-reference {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.sensitivity-reference:hover {
+  background: rgba(15, 23, 42, 0.7);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.reference-icon {
+  opacity: 0.9;
+}
+
+.sensitivity-reference p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.interactive-guidance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 16px;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.interactive-guidance:hover {
+  background: rgba(15, 23, 42, 0.7);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.interactive-guidance p {
+  margin: 0;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  animation: fadeInUp 1s forwards;
+  opacity: 1;
+}
+
+/* Info Button */
+.info-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f97316, #c2410c);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(249, 115, 22, 0.5);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.info-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(249, 115, 22, 0.6);
+}
+
+.info-icon {
+  font-size: 20px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* Info Bubble */
+.info-bubble {
+  position: fixed;
+  bottom: 90px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 15px 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 100;
+  max-width: 300px;
+  transform: translateY(0);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: fadeInUp 0.5s forwards;
+}
+
+.close-info-bubble {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  border: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-info-bubble:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.info-bubble-icon {
+  font-size: 1.5rem;
+}
+
+.info-bubble-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-bubble-content h3 {
+  margin: 0 0 5px;
+  font-size: 0.95rem;
+  color: white;
+}
+
+.info-bubble-content p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+}
+
+.info-bubble-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .temperature-top-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .development-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .info-bubble {
+    max-width: 250px;
+  }
+  
+  .navigation-indicators {
+    right: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .temperature-top-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .trimester-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .info-bubble {
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+  }
+  
+  .info-bubble-content h3 {
+    font-size: 0.85rem;
+  }
+  
+  .info-bubble-content p {
+    font-size: 0.75rem;
+  }
+  
+  .navigation-indicators {
+    display: none; /* Hide on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .location-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .current-temp-display {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+    text-align: center;
+  }
+  
+  .sensitivity-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .development-content {
+    gap: 20px;
+  }
+  
+  .info-button {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .info-bubble {
+    bottom: 70px;
+    right: 20px;
+    padding: 12px;
+    max-width: 180px;
+    border-radius: 16px;
+  }
+  
+  .thermometer-container {
+    height: 340px;
+  }
+  
+  .thermometer {
+    height: 300px;
+  }
+  
+  .thermometer-stem {
+    height: 260px;
+  }
+  
+  .thermometer-scale {
+    height: 260px;
+  }
+}
+
+@media (max-width: 576px) {
+  .heat-impact-page {
+    padding: 40px 15px 60px;
+  }
+  
+  .heat-title {
+    font-size: 1.4rem;
+  }
+  
+  .page-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .temp-control-section, 
+  .temperature-sensitivity-section,
+  .area-details-section,
+  .development-overview-section {
+    padding: 20px;
+  }
+  
+  .section-title {
+    font-size: 1.3rem;
+  }
+  
+  .trimester-tab {
+    padding: 10px;
+  }
+  
+  .trimester-tab-text {
+    font-size: 0.85rem;
+  }
+  
+  .thermometer-wrapper {
+    transform: scale(0.9);
+  }
+  
+  .area-details-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .close-details {
+    width: 36px;
+    height: 36px;
+    font-size: 1.5rem;
+  }
+  
+  .area-info-section h3 {
+    font-size: 1.1rem;
+  }
+  
+  .development-info h2 {
+    font-size: 1.3rem;
+  }
+  
+  .info-button {
+    width: 36px;
+    height: 36px;
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .info-icon {
+    font-size: 16px;
+  }
+  
+  .info-bubble {
+    bottom: 60px;
+    right: 15px;
+    max-width: 160px;
+    padding: 10px;
+  }
+  
+  .info-bubble-content h3 {
+    font-size: 0.8rem;
+  }
+  
+  .info-bubble-content p {
+    font-size: 0.7rem;
+  }
+  
+  .view-video-button {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+  
+  .scroll-hint {
+    font-size: 0.8rem;
+  }
+  
+  .thermometer-container {
+    height: 300px;
+  }
+  
+  .thermometer {
+    height: 260px;
+  }
+  
+  .thermometer-stem {
+    height: 220px;
+  }
+  
+  .thermometer-scale {
+    height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .thermometer-wrapper {
+    transform: scale(0.8);
+  }
+  
+  .sensitivity-item {
+    padding: 15px;
+  }
+  
+  .sensitivity-item h4 {
+    font-size: 1rem;
+  }
+  
+  .development-info p {
+    font-size: 0.9rem;
+  }
+  
+  .interactive-guidance p {
+    font-size: 0.9rem;
+  }
+  
+  .sensitivity-reference {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 15px;
+  }
+  
+  .reference-icon {
+    font-size: 1.1rem;
+  }
+  
+  .sensitivity-reference p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Video Modal Styles */
+.video-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 20, 0.9);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease-out;
+  backdrop-filter: blur(8px);
+}
+
+.video-modal {
+  background: linear-gradient(to bottom right, #312e81, #4c1d95);
+  border-radius: 16px;
+  width: 85%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 30px rgba(236, 72, 153, 0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  animation: modalSlideUp 0.5s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(50px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+.video-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(236, 72, 153, 0.3);
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.video-close-btn:hover {
+  background: rgba(236, 72, 153, 0.8);
+  transform: scale(1.1);
+}
+
+.video-modal h3 {
+  padding: 20px;
+  margin: 0;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.fetal-development-video {
+  width: 100%;
+  max-height: 60vh;
+  display: block;
+  background: #000;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.video-description {
+  padding: 15px 20px;
+  color: white;
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.video-description p {
+  margin-top: 0;
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* Timeline for the development video */
+.video-timeline {
+  position: relative;
+  height: 40px;
+  margin: 15px 0 5px;
+  display: flex;
+  align-items: center;
+}
+
+.video-timeline::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%);
+}
+
+.timeline-marker {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: #ec4899;
+  border-radius: 50%;
+  margin-left: -6px;
+  z-index: 1;
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.3);
+}
+
+.marker-label {
+  position: absolute;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 3px 8px;
+  border-radius: 10px;
+  color: white;
+}
+
+/* Enhanced baby hint text */
+.baby-hint {
+  width: auto; /* Allow the width to adjust to the new longer text */
+  max-width: 220px; /* Limit width on larger screens */
+}
+
+.baby-hint span:last-child {
+  font-size: 0.75rem; /* Slightly smaller font for longer text */
+}
+
+/* Responsive styles for video modal */
+@media (max-width: 768px) {
+  .video-modal {
+    width: 95%;
+    max-height: 80vh;
+  }
+  
+  .video-modal h3 {
+    font-size: 1.2rem;
+    padding: 15px;
+  }
+  
+  .video-description {
+    padding: 10px 15px;
+    font-size: 0.8rem;
+  }
+  
+  .video-timeline {
+    height: 30px;
+    margin: 10px 0 0;
+  }
+  
+  .marker-label {
+    font-size: 0.65rem;
+    padding: 2px 5px;
+  }
+}
+
+/* Animation for the baby image when heartbeat is active */
+.baby-image.pulse-animation {
+  animation: enhanced-pulse 1s ease-in-out infinite;
+  filter: brightness(1.3) drop-shadow(0 0 15px rgba(236, 72, 153, 0.7));
+  border-color: rgba(236, 72, 153, 0.6);
+}
+
+@keyframes enhanced-pulse {
+  0% {
+    transform: scale(1);
+    filter: brightness(1.2) drop-shadow(0 0 10px rgba(236, 72, 153, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.4) drop-shadow(0 0 20px rgba(236, 72, 153, 0.8));
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1.2) drop-shadow(0 0 10px rgba(236, 72, 153, 0.5));
+  }
+}
+
+/* Add a play button hint on the baby image */
+.baby-wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: 17%;
+  right: 62%;
+  width: 20%; /* Match the size of the baby image */
+  height: 0;
+  padding-bottom: 20%; /* Create a square aspect ratio */
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.3);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+  background-size: 40%;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.baby-wrapper:hover::after {
+  opacity: 0.7;
+}
+  
+/* Add these styles to your HeatImpact.css file */
+
+/* Health Data Button */
+.health-data-button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.health-data-button {
+  background: linear-gradient(135deg, #8884d8, #4c1d95);
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(136, 132, 216, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.health-data-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(136, 132, 216, 0.5);
+}
+
+.health-data-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.7s ease;
+}
+
+.health-data-button:hover::before {
+  left: 100%;
+}
+
+/* Health Data Chart Modal */
+.pregnancy-health-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pregnancy-health-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 25, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.pregnancy-health-modal-content {
+  position: relative;
+  width: 95%;
+  max-width: 1400px;
+  max-height: 95vh;
+  background: linear-gradient(135deg, #1f2937, #111827);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: modalSlideUp 0.4s ease-out;
+}
+
+@keyframes modalSlideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+.pregnancy-health-modal-header {
+  padding: 20px 25px;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pregnancy-health-modal-header h2 {
+  margin: 0;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.close-modal-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.close-modal-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.pregnancy-health-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 25px;
+  color: white;
+}
+
+/* Loading Container */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  width: 100%;
+}
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.1rem;
+}
+
+.loading-spinner::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Chart Tabs */
+.chart-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+/* Chart introduction section */
+.chart-intro {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chart-intro h4 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  color: #d1d0ff;
+}
+
+.chart-intro p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.chart-tab {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.chart-tab:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.chart-tab.active {
+  background: #8884d8;
+  border-color: #8884d8;
+}
+
+/* Chart Sections */
+.chart-section {
+  margin-bottom: 30px;
+}
+
+.chart-container {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.chart-container h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.chart-description {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.chart-description p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.chart-wrapper {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.chart-insight {
+  background: rgba(136, 132, 216, 0.1);
+  border-left: 3px solid #8884d8;
+  padding: 15px;
+  border-radius: 0 8px 8px 0;
+}
+
+.chart-insight h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #d1d0ff;
+}
+
+.chart-insight p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* State Selector */
+.state-selector {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.state-selector label {
+  font-weight: 500;
+}
+
+.state-selector select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: black;
+  padding: 8px 12px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.state-selector select:focus {
+  border-color: #8884d8;
+}
+
+/* Charts Conclusion */
+.charts-conclusion {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  padding: 20px 25px;
+  margin-top: 30px;
+}
+
+.charts-conclusion h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.charts-conclusion ol {
+  margin: 0;
+  padding-left: 25px;
+}
+
+.charts-conclusion li {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.charts-conclusion li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .pregnancy-health-modal-content {
+    width: 95%;
+    max-height: 80vh;
+  }
+  
+  .pregnancy-health-modal-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .chart-tabs {
+    gap: 8px;
+  }
+  
+  .chart-tab {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .chart-wrapper {
+    padding: 15px;
+  }
+  
+  .chart-container h3 {
+    font-size: 1.1rem;
+  }
+  
+  .state-selector {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .state-selector select {
+    width: 100%;
+  }
+}
+
+/* Interactive Guidance Section with Personalization Button */
+.interactive-guidance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 16px;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.interactive-guidance:hover {
+  background: rgba(15, 23, 42, 0.7);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Personalization Hub Button Styles */
+.personalization-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 15px 30px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.personalization-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.7s ease;
+}
+
+.personalization-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.5);
+  background: linear-gradient(135deg, #ec4899 0%, #d946ef 100%);
+}
+
+.personalization-button:hover::before {
+  left: 100%;
+}
+
+.personalization-button:active {
+  transform: translateY(-2px);
+}
+
+.personalization-icon {
+  transition: transform 0.3s ease;
+}
+
+.arrow-icon {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.personalization-button:hover .personalization-icon {
+  transform: scale(1.1);
+}
+
+.personalization-button:hover .arrow-icon {
+  transform: translateX(3px);
+}
+
+/* Responsive styles for personalization button */
+@media (max-width: 768px) {
+  .personalization-button {
+    font-size: 1rem;
+    padding: 12px 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .personalization-button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+  
+  .personalization-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
